@@ -1,0 +1,2 @@
+   Date      Time   FS   VA     VB     VC     VD      U      V      W      T       P     MX    MY  Pitch  Roll
+MM DD YYYY HH MM SS.SS  cm/s   cm/s   cm/s   cm/s   cm/s   cm/s   cm/s   degC    dbar               deg    deg
