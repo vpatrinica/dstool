@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 import re
 
+import streamlit as st
 
 def timer_on():
     print('Starting Timer...')
@@ -17,7 +18,7 @@ def timer_off():
     print(_stop)
     return _stop
  
- 
+
 def prep_file2(input_file_path, chunk_size):
     start_time = timer_on()    
     output_file_path = input_file_path + str(chunk_size) + 'p2'

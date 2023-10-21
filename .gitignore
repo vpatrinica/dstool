@@ -9,3 +9,7 @@
 *.dat
 *.DAT
 *.bak
+*.zip
+*.gz
+*.7z
+__pycache*
