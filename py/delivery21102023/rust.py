@@ -58,7 +58,7 @@ def main(proc_filename, out_filename, seed_time):
     row_count = df.select(pl.count())[0, 0]
     offset_days = 1 + row_count // (8 * 60 * 60 * 24)
 
-    start = datetime(2023, 9, 20, 11, 39, 47)
+    start = datetime.strptime(seed_time, '%y-%m-%d %H:%M:%S')
     stop = start + timedelta(days=offset_days)
 
     df11 = pl.DataFrame({"timestamp": pl.datetime_range(start, stop, interval=timedelta(milliseconds=125), eager=True)[:row_count]})
