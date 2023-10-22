@@ -52,7 +52,7 @@ def process_file_chunk(chunk, carry_over, output_file, datetime_format, input_de
             try:
                 parsed_datetime = datetime.strptime(
                     row[0] + '-' + row[1] + '-' + row[2] + ' ' + row[3] + ':' + row[4] + ':' + row[5], datetime_format)
-                row[:6] = [parsed_datetime.strftime('%Y-%m-%d %H:%M:%S.%g')]
+                row[:6] = [parsed_datetime.strftime('%Y-%m-%d %H:%M:%S.%3f')]
             except ValueError:
                 pass
 

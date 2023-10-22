@@ -5,6 +5,7 @@ import streamlit as st
 import plotly.express as px
 # import numpy as np
 import os
+import time
 
 # proc_filename = "'mavs2.csv.gz'"
 # proc_filename = "'output2/SN10337-1-2/mavs_delivery1.csv.gz'"
@@ -48,6 +49,26 @@ def main(proc_filename, out_filename, seed_time):
                                    'roll': 'REAL'});
     """
     
+
+    # duckdb_sql = """
+    #           SELECT strptime('seed_time', '%y-%m-%d %H:%M:%S') AS seed_ts, 
+    #                         date_ts as pdate, 
+    #                         u as Vx, v as Vy, w as Vz, p*100 + 800 as P_mBar, degrees(atan(-1.0*mx/my)) as heading 
+    #           FROM read_csv('proc_filename', delim=',', header=false, 
+    #                         columns={'date_ts': 'TIMESTAMP_MS', 
+    #                                'va': 'SMALLINT',
+    #                                'vb': 'SMALLINT',
+    #                                'vc': 'SMALLINT',
+    #                                'vd': 'SMALLINT',
+    #                                'u': 'REAL',
+    #                                'v': 'REAL',
+    #                                'w': 'REAL',
+    #                                'p': 'REAL',
+    #                                'mx': 'REAL',
+    #                                'my': 'REAL',
+    #                                'pitch': 'REAL',
+    #                                'roll': 'REAL'});
+    # """
     
 
     duckdb_sql = duckdb_sql.replace('proc_filename', proc_filename)
@@ -77,52 +98,78 @@ def main(proc_filename, out_filename, seed_time):
 
     print(df11.head())
     df2 = pl.concat([df11, df], how="horizontal")
-    df2 = df2.select('timestamp', 'seed_ts', 'pdate', 'Vx', 'Vy', 'Vz', 'P_mBar', 'heading')
+    df2 = df2.select('timestamp', 'pdate', 'Vx', 'Vy', 'Vz', 'P_mBar', 'heading')
+    
+    df2 = df2.with_columns(
+        (pl.col("timestamp").dt.epoch(time_unit="ms") - pl.col("pdate").dt.epoch(time_unit="ms")).alias('tdelta') 
+    )
 
     st.write("First 10 rows", df2.head(10))
 
     st.write("Last 10 rows", df2.tail(10))
 
+    #time.sleep(1999999)
+
     dfs = df2.sample(fraction=0.01, seed=0)
 
-    fig_p = px.scatter(x=dfs['timestamp'], y=dfs['P_mBar'], labels={'x':'t', 'y':'P (mBar)'})
+    # fig_p = px.scatter(x=dfs['timestamp'], y=dfs['P_mBar'], labels={'x':'t', 'y':'P (mBar)'})
+    # st.write("""
+    # # Pressure (mBar)
+    # """)
+    # st.plotly_chart(fig_p, theme="streamlit")
+
+    fig_p = px.scatter(x=dfs['pdate'], y=dfs['tdelta'], labels={'x':'t', 'y':'Delta'})
     st.write("""
-    # Pressure (mBar)
+    # Delta
     """)
     st.plotly_chart(fig_p, theme="streamlit")
 
-    fig_vx = px.scatter(x=dfs['timestamp'], y=dfs['Vx'], labels={'x':'t', 'y':'Vx (m/s)'})
-    st.write("""
-    # Vx(t)
-    """)
-    st.plotly_chart(fig_vx, theme="streamlit")
+    # fig_vx = px.scatter(x=dfs['timestamp'], y=dfs['Vx'], labels={'x':'t', 'y':'Vx (m/s)'})
+    # st.write("""
+    # # Vx(t)
+    # """)
+    # st.plotly_chart(fig_vx, theme="streamlit")
 
-    fig_vy = px.scatter(x=dfs['timestamp'], y=dfs['Vy'], labels={'x':'t', 'y':'Vy (m/s)'})
-    st.write("""
-    # Vy(t)
-    """)
-    st.plotly_chart(fig_vy, theme="streamlit")
+    # fig_vy = px.scatter(x=dfs['timestamp'], y=dfs['Vy'], labels={'x':'t', 'y':'Vy (m/s)'})
+    # st.write("""
+    # # Vy(t)
+    # """)
+    # st.plotly_chart(fig_vy, theme="streamlit")
 
-    fig_vz = px.scatter(x=dfs['timestamp'], y=dfs['Vz'], labels={'x':'t', 'y':'Vz (m/s)'})
-    st.write("""
-    # Vz(t)
-    """)
-    st.plotly_chart(fig_vz, theme="streamlit")
+    # fig_vz = px.scatter(x=dfs['timestamp'], y=dfs['Vz'], labels={'x':'t', 'y':'Vz (m/s)'})
+    # st.write("""
+    # # Vz(t)
+    # """)
+    # st.plotly_chart(fig_vz, theme="streamlit")
 
-    fig_heading = px.scatter(x=dfs['timestamp'], y=dfs['heading'], labels={'x':'t', 'y':'Heading (°)'})
-    st.write("""
-    # heading °(t)
-    """)
-    st.plotly_chart(fig_heading, theme="streamlit")
+    # fig_heading = px.scatter(x=dfs['timestamp'], y=dfs['heading'], labels={'x':'t', 'y':'Heading (°)'})
+    # st.write("""
+    # # heading °(t)
+    # """)
+    # st.plotly_chart(fig_heading, theme="streamlit")
+    
+    # fig_heading = px.scatter(x=dfs['timestamp'], y=dfs['heading'], labels={'x':'t', 'y':'Heading (°)'})
+    # st.write("""
+    # # heading °(t)
+    # """)
+    # fig_heading.add_scatter(x=dfs['pdate'], y=dfs['heading'])
+    # st.plotly_chart(fig_heading, theme="streamlit")
 
-    df = px.data.iris()
-    fig2 = px.scatter_3d(dfs, x='Vx', y='Vy', z='Vz')
-    st.plotly_chart(fig2, theme="streamlit")
+    
+    # fig_heading1 = px.scatter(x=dfs['pdate'], y=dfs['heading'], labels={'x':'t', 'y':'Heading* (°)'})
+    # st.write("""
+    # # heading °(t)
+    # """)
+    # st.plotly_chart(fig_heading1, theme="streamlit")
+
+    # df = px.data.iris()
+    # fig2 = px.scatter_3d(dfs, x='Vx', y='Vy', z='Vz')
+    # st.plotly_chart(fig2, theme="streamlit")
 
     print(df2.head(100))
     print(df2.tail(100))
 
-    df2 = df2.select('timestamp', 'Vx', 'Vy', 'Vz', 'P_mBar', 'heading')
+    df2 = df2.select('timestamp', 'pdate', 'tdelta', 'Vx', 'Vy', 'Vz', 'P_mBar', 'heading')
 
     print(df2.head(100))
     print(df2.tail(100))
@@ -130,28 +177,32 @@ def main(proc_filename, out_filename, seed_time):
     output_dir = os.path.dirname(out_filename)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)  # Recreate parent directories if they don't exist
-    df2.write_csv(out_filename)
+
+    if os.path.exists(out_filename):
+        os.remove(out_filename)
+
+    df2.write_csv(out_filename, separator=",", quote_style="non_numeric")
 
     # Extract the date component and create a new column
-    df2 = df2.with_columns(pl.col("timestamp").dt.strftime("%Y-%m-%d").alias("date"))
+    # df2 = df2.with_columns(pl.col("timestamp").dt.strftime("%Y-%m-%d").alias("date"))
 
-    # Group the DataFrame by the date column
-    grouped = df2.group_by("date")
+    # # Group the DataFrame by the date column
+    # grouped = df2.group_by("date")
 
-    # Now you have a group of DataFrames, each representing a partition
-    for date, partition_df in grouped:
-        partition_df = partition_df.select(pl.col("timestamp").dt.strftime("%Y-%m-%d %H:%M:%S.%3f"),
-                                           pl.col('Vx').round(1), 
-                                           pl.col('Vy').round(1), 
-                                           pl.col('Vz').round(1),
-                                           pl.col('P_mBar').round(1),  
-                                           pl.col('heading').cast(pl.Int32))
-        # partition_df = partition_df.select('timestamp', 'Vx', 'Vy', 'Vz', 'P_mBar', 'heading')
-        out_fn = prepend_prefix_to_path(out_filename, str(date))
-        print(out_fn)
-        partition_df.write_csv(out_fn, separator=",", quote_style="non_numeric")
-        # print(f"Partition for {date}:")
-        # print(partition_df)
+    # # Now you have a group of DataFrames, each representing a partition
+    # for date, partition_df in grouped:
+    #     partition_df = partition_df.select(pl.col("timestamp").dt.strftime("%Y-%m-%d %H:%M:%S.%3f"),
+    #                                        pl.col('Vx').round(1), 
+    #                                        pl.col('Vy').round(1), 
+    #                                        pl.col('Vz').round(1),
+    #                                        pl.col('P_mBar').round(1),  
+    #                                        pl.col('heading').cast(pl.Int32))
+    #     # partition_df = partition_df.select('timestamp', 'Vx', 'Vy', 'Vz', 'P_mBar', 'heading')
+    #     out_fn = prepend_prefix_to_path(out_filename, str(date))
+    #     print(out_fn)
+    #     partition_df.write_csv(out_fn, separator=",", quote_style="non_numeric")
+    #     # print(f"Partition for {date}:")
+    #     # print(partition_df)
 
 
 if __name__ == "__main__":
