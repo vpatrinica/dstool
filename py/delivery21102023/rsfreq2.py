@@ -56,6 +56,40 @@ def get_time_roll_vec(_seed_time, _span, _df):
     _row_count = len(_df)
     _start = datetime.strptime(_seed_time, '%y-%m-%d %H:%M:%S.%f')
     _new_count = _row_count - _span
+    _colname_step = 'step' + str(_span)
+    _step_series_span = pl.Series(_colname_step, (((_df[_span:] - _df[:-_span]).cast(pl.Int64)*float(1e3/_span))).cast(pl.Int64))
+    
+    # _first_step = ((_df[_span] - _df[0])/float(1000*_span)).total_seconds()*1000
+    _first_step = ((_df[_span] - _df[0]).total_seconds()*1e6/float(_span))
+    _first_step = int(_first_step)
+    print(_first_step)
+    print(_step_series_span[:10])
+    #print(_step_series_span[:10])
+    _init_list = [0] + ([_first_step]*_span) 
+    _step_series = pl.concat([pl.DataFrame({_colname_step: _init_list})[_colname_step], _step_series_span])
+    #_extra_padding = pl.Series(_colname_step, [_first_step])
+    #_step_series = _step_series.extend(_extra_padding)
+    _td_series = _step_series.cumsum()
+    #_step_series = _step_series[:_row_count]
+    
+    _t_series = pl.Series('ts-'+str(_span), [_start] *(_row_count+1))
+
+    _dft = pl.DataFrame({"ts": _t_series, "td": _td_series})
+    _t_series = pl.Series('ts-'+str(_span), _dft.select(pl.col('ts') + pl.duration(microseconds=pl.col('td'))).to_series())
+
+
+    #_init_series = pl.Series('init', [_start] * _new_count)
+    # _time_series =  [_df[_span]] * _new_count
+    # for _iter in range(1, _new_count):
+    #     _time_series[_iter] = _time_series[_iter - 1] + timedelta(seconds=_step_series[_iter -1])
+    _t_series = pl.Series('ts-'+str(_span), _t_series)
+    #_step_series = _step_series[1:]
+    return (_step_series[1:], _t_series[:-1], _td_series[:-1])
+
+def get_time_roll_vec2(_seed_time, _span, _df):
+    _row_count = len(_df)
+    _start = datetime.strptime(_seed_time, '%y-%m-%d %H:%M:%S.%f')
+    _new_count = _row_count - _span
     _step_series = pl.Series('step' + str(_span), ((_df[_span:] - _df[:-_span]).cast(pl.Int64)/float(1000*_span)))
     #_init_series = pl.Series('init', [_start] * _new_count)
     _td_series = _step_series.cumsum()
@@ -90,7 +124,7 @@ def get_time_roll_ts(_seed_time, _span, _df, _ds):
 def get_series(_seed_time, _seed_freq, _row_count):
     _freq_hz = _seed_freq   
     _period_us = int(1000000.0/_freq_hz)
-    _freq_hz_act = _period_us/1000000.0
+    _freq_hz_act = 1000000.0 /_period_us
     _offset_days = 1 + _row_count // (_freq_hz_act * 60 * 60 * 24)
 
     _start = datetime.strptime(_seed_time, '%y-%m-%d %H:%M:%S.%f')
@@ -185,8 +219,8 @@ def main(proc_filename, out_filename):
     s1_df = pl.DataFrame({sum_label_col: s1})
     #ts_1_df = dt_1.apply(lambda ms: datetime.fromtimestamp(int(ms / 1000.0)))
 
-    # df2 = pl.concat([dft_ap, dft_jg, dt_1_df, ts_1_df, df], how="horizontal")
-    df2 = pl.concat([dft_ap[span:], dft_jg[span:], dt_1_df, ts_1_df, s1_df, df[span:][:]], how="horizontal")
+    df2 = pl.concat([dft_ap, dft_jg, dt_1_df, ts_1_df, s1_df, df], how="horizontal")
+    #df2 = pl.concat([dft_ap[span:], dft_jg[span:], dt_1_df, ts_1_df, s1_df, df[span:][:]], how="horizontal")
     
     df2 = df2.select('timestamp'+str(freq_init_ap),
                      'timestamp'+str(freq_init_jg), 
@@ -205,9 +239,9 @@ def main(proc_filename, out_filename):
     st.write('Row count: ', row_count)
 
 
-    st.write("First 10 rows", df2.head(10))
+    st.write("First 10 rows", df2.head(150))
 
-    st.write("Last 10 rows", df2.tail(10))
+    st.write("Last 10 rows", df2.tail(150))
 
     #time.sleep(1999999)
 
