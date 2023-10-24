@@ -18,6 +18,9 @@ streamlit run rust.py -- --proc_filename=output4/SN10395-1-3/m_d1_SN10395-1-3.cs
 
 
 
+streamlit run rsfreq.py -- --proc_filename=output_proc4/SN10337-1-2/m_d1_SN10337-1-2.csv --out_filename=output_proc6/SN10337-1-2/m_d1_SN10337-1-2.csv 
+
+streamlit run rsfreq2.py -- --proc_filename=output_proc4/SN10395-1-3/m_d1_SN10395-1-3.csv --out_filename=output_proc6/SN10395-1-3/m_d1_SN10395-1-3.csv 
 
 
 
