@@ -1,0 +1,10 @@
+{
+    "profile_list": [true],
+    "input_file_list": ["DATA0001_work.csv"],
+    "output_file_list": ["output7/DATA0001_work.csv/m_DATA0001_work.csv"],
+    "skip_lines_list": [0],
+    "datetime_format_list": ["%m-%d-%y %H:%M:%S.%3f"],
+    "input_delimiter_list": [" "],
+    "output_delimiter_list": [","]
+  }
+  

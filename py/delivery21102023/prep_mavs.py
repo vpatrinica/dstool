@@ -55,8 +55,11 @@ def prep_file(input_file_path, output_file_path, chunk_size=C_I_DEFAULT_CHUNK_SI
     _end_time = timer_off(_current_function_name) 
     print(_end_time - _start_time)
 
-files_to_convert = ["SN10337-1-2.csv", "SN10395-1-3.csv"]
-file_output_names = ["output4/SN10337-1-2/m_d1_SN10337-1-2.csv", "output4/SN10395-1-3/m_d1_SN10395-1-3.csv"]
+# files_to_convert = ["SN10337-1-2.csv", "SN10395-1-3.csv"]
+# file_output_names = ["output4/SN10337-1-2/m_d1_SN10337-1-2.csv", "output4/SN10395-1-3/m_d1_SN10395-1-3.csv"]
+files_to_convert = ["DATA0001_work.csv"]
+file_output_names = ["output7/DATA0001_work.csv/m_DATA0001_work.csv"]
+
 _out_index = 0
 for _file in files_to_convert:
     print(_file)
