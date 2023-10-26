@@ -1,0 +1,10 @@
+{
+    "profile_list": [true, true],
+    "input_file_list": ["SN10337-1-2.csv", "SN10395-1-3.csv"],
+    "output_file_list": ["output3/SN10337-1-2/m_d1_SN10337-1-2.csv", "output3/SN10395-1-3/m_d1_SN10395-1-3.csv"],
+    "skip_lines_list": [0, 0],
+    "datetime_format_list": ["%m-%d-%y %H:%M:%S.%3f", "%m-%d-%y %H:%M:%S.%3f"],
+    "input_delimiter_list": [" ", " "],
+    "output_delimiter_list": [",", ","]
+  }
+  
