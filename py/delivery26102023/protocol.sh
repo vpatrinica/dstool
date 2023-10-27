@@ -9,14 +9,25 @@ python runner.py --config=config_mavs_csv_raw_plain.json
 
 python runner.py --config=config_mavs_csv_raw_plain2.json
 
+streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk2-4\\NK2-403-404.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk2-4\\NK2-403-404.csv" --heading=0.69 --seed_time="2023-09-21 09:47:15.69"
 
-streamlit run rsfreq3.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-2\\DATA0001.csv" 
+streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk2-4\\NK2-403-404.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk2-4\\NK2-403-404.csv" --heading=0.69 --seed_time="2023-09-21 09:47:15.690000" --step=125000
 
-streamlit run rsfreq3.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-3\\DATA0001.csv" 
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-2\\DATA0001.csv" 
 
-streamlit run rsfreq3.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-2\\DATA0001.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-2\\DATA0001.csv" 
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-3\\DATA0001.csv" 
 
-streamlit run rsfreq3.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-3\\DATA0001.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-3\\DATA0001.csv" 
+streamlit run rsmavs-.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-2\\DATA0001.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-2\\DATA0001.csv" 
+
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-3\\DATA0001.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-3\\DATA0001.csv" 
+
+streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk1-4\\NK1-402-403.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk1-4\\NK1-402-403.csv" --heading=0.69 --seed_time="2023-09-21 09:47:15.69" --step=125000
+
+streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk2-4\\NK2-403-404.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk2-4\\NK2-403-404.csv" --heading=0.69 --seed_time="2023-09-21 09:47:15.69" --step=125000
+
+
+
+
 
 
 streamlit run rust.py -- --proc_filename=output/SN10337-1-2/m_d1_SN10337-1-2.csv --out_filename=output_proc/SN10337-1-2/m_d1_SN10337-1-2.csv --seed_time="23-09-21 09:47:15"
