@@ -12,6 +12,43 @@ from file_utils import prepend_prefix_to_path,\
     prepare_output_file,\
     make_dirs
 
+def get_mavs_schema(_type):
+    if _type == 1:
+        return """
+                       {'pdate': 'TIMESTAMP_MS', 
+                        'va': 'SMALLINT',
+                        'vb': 'SMALLINT',
+                        'vc': 'SMALLINT',
+                        'vd': 'SMALLINT',
+                        'u': 'REAL',
+                        'v': 'REAL',
+                        'w': 'REAL',
+                        'p': 'REAL',
+                        'mx': 'REAL',
+                        'my': 'REAL',
+                        'pitch': 'REAL',
+                        'roll': 'REAL'
+                        }
+            """       
+    else:
+        return """
+                       {'pdate': 'TIMESTAMP_MS', 
+                        'va': 'SMALLINT',
+                        'vb': 'SMALLINT',
+                        'vc': 'SMALLINT',
+                        'vd': 'SMALLINT',
+                        'u': 'REAL',
+                        'v': 'REAL',
+                        'w': 'REAL',
+                        't': 'REAL',
+                        'p': 'REAL',
+                        'mx': 'REAL',
+                        'my': 'REAL',
+                        'pitch': 'REAL',
+                        'roll': 'REAL'
+                        }
+            """ 
+
 
 def get_time_roll_vec(_df, _span,  _labels):
     [_colname_step] = _labels
@@ -37,7 +74,7 @@ def write_df_to_csv(_df, _out_fn, _append_mode):
         _df.write_csv(of, separator=",", has_header=_has_header, quote_style="non_numeric")
 
 
-def main(proc_filename, out_filename, append_mode=False, seconds_to_spread=0):
+def main(proc_filename, out_filename, mavs_type=1, append_mode=False, seconds_to_spread=0):
     # prepare output folder
     make_dirs(out_filename, append_mode)
 
@@ -46,22 +83,11 @@ def main(proc_filename, out_filename, append_mode=False, seconds_to_spread=0):
                              pdate,                              
                             u as Vx, v as Vy, w as Vz, p*100 + 800 as P_mBar, degrees(atan(-1.0*mx/my)) as heading
               FROM read_csv('proc_filename', delim=',', header=false, 
-                            columns={'pdate': 'TIMESTAMP_MS', 
-                                    'va': 'SMALLINT',
-                                   'vb': 'SMALLINT',
-                                   'vc': 'SMALLINT',
-                                   'vd': 'SMALLINT',
-                                   'u': 'REAL',
-                                   'v': 'REAL',
-                                   'w': 'REAL',
-                                   'p': 'REAL',
-                                   'mx': 'REAL',
-                                   'my': 'REAL',
-                                   'pitch': 'REAL',
-                                   'roll': 'REAL'
-                            });
+                            columns=placeholder_columns);
     """
     duckdb_sql = duckdb_sql.replace('proc_filename', proc_filename)
+    duckdb_sql = duckdb_sql.replace('placeholder_columns', get_mavs_schema(mavs_type))
+
     df = duckdb.sql(duckdb_sql).pl()
     row_count = df.select(pl.count())[0, 0]
     
@@ -126,14 +152,15 @@ def main(proc_filename, out_filename, append_mode=False, seconds_to_spread=0):
         out_fn = prepend_prefix_to_path(out_filename, str(date))
         write_df_to_csv(partition_df, out_fn, append_mode)
     print("Finished export")
-        
+
 
 if __name__ == "__main__":
     # Create a command-line argument parser
     parser = argparse.ArgumentParser(description='Argus Data Processing')
     parser.add_argument('--proc_filename', type=str, help='Input processing filename')
     parser.add_argument('--out_filename', type=str, help='Output filename')
-    parser.add_argument('--seconds_to_spread', type=float, help='Seconds to spread as an integer')
+    parser.add_argument('--seconds_to_spread', type=float, help='Seconds to spread a float')
+    parser.add_argument('--mavs_type', type=float, help='Seconds to spread as an integer')
 
     parser.add_argument("--append", "-a", action="store_true", help="This is a sample flag.")
     args = parser.parse_args()
@@ -141,6 +168,6 @@ if __name__ == "__main__":
     if not args.proc_filename or not args.out_filename:
         print("Please provide both --proc_filename and --out_filename ")
     else:
-        main(args.proc_filename, args.out_filename, args.append, args.seconds_to_spread)
+        main(args.proc_filename, args.out_filename, args.mavs_type, args.append, args.seconds_to_spread)
 
 

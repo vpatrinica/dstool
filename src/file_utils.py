@@ -22,7 +22,7 @@ def prepare_output_file(_file, _append_mode):
 
 def make_dirs(_file, _append):
     _file_dir = os.path.dirname(_file)
-    if not(_append):
+    if (not(_append) and os.path.exists(_file_dir)):
         shutil.rmtree(_file_dir)
     if not os.path.exists(_file_dir):
         os.makedirs(_file_dir)
