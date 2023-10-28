@@ -23,7 +23,7 @@ def write_df_to_csv(_df, _out_fn, _append_mode):
 
 
 #TIMESTAMP strptime('seed_time', '%y-%m-%d %H:%M:%S') + INTERVAL 125000*Ensemble microsecond as pdate,    
-def main(proc_filename, out_filename, heading, seed_time, end_time, time_fmt='%Y-%m-%d %H:%M:%S.%f', step=125000, append_mode=False, seconds_to_spread=0):
+def main(proc_filename, out_filename, heading, seed_time, end_time, time_fmt='%Y-%m-%d %H:%M:%S.%f', append_mode=False):
     # prepare output folder
     make_dirs(out_filename, append_mode)
 
@@ -61,34 +61,20 @@ def main(proc_filename, out_filename, heading, seed_time, end_time, time_fmt='%Y
     duckdb_sql = duckdb_sql.replace('placeholder_heading', str(heading))        
     
     df = duckdb.sql(duckdb_sql).pl()
-    row_count = df.select(pl.count())[0, 0]
-
-    offset_days = 1 + row_count // (8 * 60 * 60 * 24)
+    row_count = df.select(pl.count())[0, 0]    
 
     start = datetime.strptime(seed_time, time_fmt)
     end_ref = datetime.strptime(end_time, time_fmt)
     step = 1e9 * ((end_ref - start).total_seconds()  / float(row_count) )
     print(step)
-    stop = start + timedelta(days=offset_days)
 
-    # df11 = pl.DataFrame({"pdate": pl.datetime_range(start, stop, interval=timedelta(microseconds=step), eager=True)[:row_count]})
-    _dates = [start]*row_count
-    _sdates = pl.Series("pdate", _dates)
-
-    _steps = [0] + ([step]*(row_count-1))
-    _ssteps = pl.Series("steps", _steps)
-
-    _cumsum = _ssteps.cumsum()
-
-    _dft = pl.DataFrame({"ts": _dates, "td": _cumsum})
-    _t_series = pl.Series('pdate', _dft.select(pl.col('ts') + pl.duration(nanoseconds=pl.col('td'))).to_series())
-    _td_series = pl.DataFrame({"pdate": _t_series})
-    
-    df = pl.concat([_td_series, df], how="horizontal")
+    df = df.with_columns(pl.Series("pdate", [start]*row_count).alias("pdate"))
+    df = df.with_columns(pl.Series("steps", range(row_count)).alias("steps"))
+    df = df.with_columns(pl.col('pdate') + pl.duration(nanoseconds=step*pl.col('steps')).alias("pdate"))
 
     print(df[:2])
     print(df[-2:]) 
-
+    print(row_count)
 
     st.write("""
     # Argus Data Processing
@@ -96,23 +82,17 @@ def main(proc_filename, out_filename, heading, seed_time, end_time, time_fmt='%Y
              
     """, f"Processing {proc_filename}")
 
-    st.code(duckdb_sql)
-    print(row_count)
+    st.code(duckdb_sql)    
     
-    df_columns = ['pdate', 'Vx', 'Vy', 'Vz', 'P_mBar', 'heading']
-    
+    df_columns = ['pdate', 'Vx', 'Vy', 'Vz', 'P_mBar', 'heading']    
     df = df.select(df_columns)
 
     st.write('Row count: ', row_count)
     st.write("First 10 rows", df.head(150))
     st.write("Last 10 rows", df.tail(150))
 
-    # dfs = df.sample(fraction=0.01, seed=0)
-    if seconds_to_spread:
-        ns_to_spread = 1e9 * (seconds_to_spread / float(row_count))
-        df = df.with_columns(pl.col('pdate') + pl.duration(nanoseconds=ns_to_spread))
-
     write_df_to_csv(df, out_filename, append_mode)
+
     #####
     # Dayly split
     ######
@@ -146,8 +126,6 @@ if __name__ == "__main__":
     parser.add_argument('--seed_time', type=str, help='Seed time as a string', required=True)
     parser.add_argument('--end_time', type=str, help='End time as a string', required=True)
     parser.add_argument('--time_fmt', type=str, help='Timeformat as a string', required=True)
-    parser.add_argument('--step', type=str, help='Step us def 125000')
-    parser.add_argument('--seconds_to_spread', type=int, help='Seconds to spread as an integer')
     parser.add_argument("--append", "-a", action="store_true", help="This is a sample flag.")
 
     args = parser.parse_args()
@@ -155,5 +133,5 @@ if __name__ == "__main__":
     if not args.proc_filename or not args.out_filename or not args.heading or not args.seed_time or not args.end_time or not args.time_fmt:
         print("Please provide both --proc_filename and --out_filename --heading --seed_time --end_time --time_fmt")
     else:
-        main(args.proc_filename, args.out_filename, args.heading, args.seed_time, args.end_time, args.time_fmt, args.step, args.append, args.seconds_to_spread)
+        main(args.proc_filename, args.out_filename, args.heading, args.seed_time, args.end_time, args.time_fmt, args.append)
 

@@ -91,16 +91,17 @@ def main(proc_filename, out_filename, append_mode=False, seconds_to_spread=0):
         df = pl.concat([ts_1_df, df], how="horizontal")
         df_columns = [step_label_col] + df_columns    
 
-    df = df.select(df_columns)
-
     st.write('Row count: ', row_count)
     st.write("First 10 rows", df.head(150))
     st.write("Last 10 rows", df.tail(150))
 
     if seconds_to_spread:
-        us_to_spread = seconds_to_spread * 1e6 / row_count
-        df = df.with_columns(pl.col('pdate') + pl.duration(microseconds=us_to_spread))
+        ns_to_spread = seconds_to_spread * 1e9 / row_count
+        df = df.with_columns(pl.Series("steps", range(row_count)).alias("steps"))
+        df = df.with_columns(pl.col('pdate') + pl.duration(nanoseconds=ns_to_spread*pl.col('steps')).alias("pdate"))
     
+    df = df.select(df_columns)
+
     write_df_to_csv(df, out_filename, append_mode)
     
     #####
@@ -132,7 +133,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Argus Data Processing')
     parser.add_argument('--proc_filename', type=str, help='Input processing filename')
     parser.add_argument('--out_filename', type=str, help='Output filename')
-    parser.add_argument('--seconds_to_spread', type=int, help='Seconds to spread as an integer')
+    parser.add_argument('--seconds_to_spread', type=float, help='Seconds to spread as an integer')
 
     parser.add_argument("--append", "-a", action="store_true", help="This is a sample flag.")
     args = parser.parse_args()
