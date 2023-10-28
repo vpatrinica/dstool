@@ -160,7 +160,7 @@ if __name__ == "__main__":
     parser.add_argument('--proc_filename', type=str, help='Input processing filename')
     parser.add_argument('--out_filename', type=str, help='Output filename')
     parser.add_argument('--seconds_to_spread', type=float, help='Seconds to spread a float')
-    parser.add_argument('--mavs_type', type=float, help='Seconds to spread as an integer')
+    parser.add_argument('--mavs_type', type=int, help='Seconds to spread as an integer', default=1)
 
     parser.add_argument("--append", "-a", action="store_true", help="This is a sample flag.")
     args = parser.parse_args()

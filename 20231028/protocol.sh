@@ -7,35 +7,35 @@ py prep_vector.py
 
 # Process
 
-streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk1-4\\NK1-402.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk1-4\\NK1-402-403.csv" --heading=13.4 --seed_time="21.09.2023 14:25:20.000" --end_time="01.10.2023 11:25:42.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" 
-streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk1-4\\NK1-403.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk1-4\\NK1-402-403.csv" --heading=12.8 --seed_time="01.10.2023 11:29:15.000" --end_time="25.10.2023 16:05:17.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" --append 
+streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk1-4\\NK1-402.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk1-4\\_NK1-402-403.csv" --heading=13.4 --seed_time="21.09.2023 14:25:20.000" --end_time="01.10.2023 11:25:42.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" 
+streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk1-4\\NK1-403.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk1-4\\_NK1-402-403.csv" --heading=12.8 --seed_time="01.10.2023 11:29:15.000" --end_time="25.10.2023 16:05:17.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" --append 
 
-streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk2-4\\NK2-403.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk2-4\\NK2-403-404.csv" --heading=36.7 --seed_time="22.09.2023 10:26:08.000" --end_time="01.10.2023 09:59:45.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" 
-streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk2-4\\NK2-404.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk2-4\\NK2-403-404.csv" --heading=35.6 --seed_time="01.10.2023 10:05:17.000" --end_time="25.10.2023 15:03:16.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" --append
-
-
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001-part0.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-2\\DATA0001.csv" --seconds_to_spread=-20.7
-
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-2\\DATA0001.csv" --append --seconds_to_spread=-12
-
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-2\\DATA0001.csv" --append --seconds_to_spread=-8.5
+streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk2-4\\NK2-403.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk2-4\\_NK2-403-404.csv" --heading=36.7 --seed_time="22.09.2023 10:26:08.000" --end_time="01.10.2023 09:59:45.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" 
+streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk2-4\\NK2-404.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk2-4\\_NK2-403-404.csv" --heading=35.6 --seed_time="01.10.2023 10:05:17.000" --end_time="25.10.2023 15:03:16.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" --append
 
 
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001-part0.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-3\\DATA0001.csv"  --seconds_to_spread=-19
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001-part0.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-2\\_DATA0001.csv" --seconds_to_spread=-20.7
 
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001-part1.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-3\\DATA0001.csv" --append --seconds_to_spread=-11
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001-part1.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-2\\_DATA0001.csv" --append --seconds_to_spread=-12
 
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-3\\DATA0001.csv" --append --seconds_to_spread=-8.33
-
-
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-2\\DATA0001-part1.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-2\\DATA0001.csv" 
-
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-2\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-2\\DATA0001.csv" --append 
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-2\\_DATA0001.csv" --append --seconds_to_spread=-8.5
 
 
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-3\\DATA0001-part1.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-3\\DATA0001.csv" --mavs_type=2
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001-part0.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-3\\_DATA0001.csv"  --seconds_to_spread=-19
 
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-3\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-3\\DATA0001.csv" --mavs_type=2 --append 
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001-part1.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-3\\_DATA0001.csv" --append --seconds_to_spread=-11
+
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk1-3\\_DATA0001.csv" --append --seconds_to_spread=-8.33
+
+
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-2\\DATA0001-part1.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-2\\_DATA0001.csv" 
+
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-2\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-2\\_DATA0001.csv" --append 
+
+
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-3\\DATA0001-part1.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-3\\_DATA0001.csv" --mavs_type=2
+
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-3\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-3\\_DATA0001.csv" --mavs_type=2 --append 
 
 
 Vector Data:
