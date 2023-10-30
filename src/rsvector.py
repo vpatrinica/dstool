@@ -30,9 +30,9 @@ def main(proc_filename, out_filename, heading, seed_time, end_time, time_fmt='%Y
     duckdb_sql = """
               SELECT         
                             Ensemble,                         
-                            -Velocity2 as Vx, 
-                            Velocity1 as Vy, 
-                            Velocity3 as Vz, 
+                            -100*Velocity2 as Vx, 
+                            100*Velocity1 as Vy, 
+                            100*Velocity3 as Vz, 
                             round(Analog1, 3) as P_mBar, 
                             placeholder_heading as heading
               FROM read_csv('proc_filename', delim=',', header=false, 
