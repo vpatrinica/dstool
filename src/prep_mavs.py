@@ -84,14 +84,18 @@ def process_pool(_input_map):
 
 if __name__ == "__main__":
     proc_steps = [
-        {"C:\\usr\\20231025\\mavs-converted\\nk1-2\\DATA0001-0.DAT": ("C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001-part0.csv", "w"),
-        "C:\\usr\\20231025\\mavs-converted\\nk1-3\\DATA0001-0.DAT": ("C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001-part0.csv", "w")}
+        {"C:\\usr\\20231101\\mavs-converted\\nk1-1\\DATA0001-part0.DAT": ("C:\\usr\\20231101\\mavs-prep\\nk1-1\\DATA0001-part0.csv", "w")
+        #,"C:\\usr\\20231101\\mavs-converted\\nk1-1\\DATA0001-partX.DAT": ("C:\\usr\\20231101\\mavs-prep\\nk1-1\\DATA0001-partX.csv", "w")
+        }
         ]
     for _proc_step in proc_steps:
         process_pool(_proc_step)
 
 
-
+# proc_steps = [
+#     {"C:\\usr\\20231025\\mavs-converted\\nk1-2\\DATA0001-0.DAT": ("C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001-part0.csv", "w"),
+#     "C:\\usr\\20231025\\mavs-converted\\nk1-3\\DATA0001-0.DAT": ("C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001-part0.csv", "w")}
+#     ]
 # proc_steps = [
 #         {"C:\\usr\\20231025\\mavs-converted\\nk1-2\\DATA0001.DAT": ("C:\\usr\\20231025\\mavs-prep\\nk1-2\\DATA0001.csv", "w"),
 #         "C:\\usr\\20231025\\mavs-converted\\nk1-3\\DATA0001.DAT": ("C:\\usr\\20231025\\mavs-prep\\nk1-3\\DATA0001.csv", "w"),
