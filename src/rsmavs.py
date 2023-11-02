@@ -74,7 +74,7 @@ def write_df_to_csv(_df, _out_fn, _append_mode):
         _df.write_csv(of, separator=",", has_header=_has_header, quote_style="non_numeric")
 
 
-def main(proc_filename, out_filename, mavs_type=1, append_mode=False, seconds_to_spread=0):
+def main(proc_filename, out_filename, mavs_type=1, append_mode=False, seconds_to_spread=0, seconds_to_offset=0):
     # prepare output folder
     make_dirs(out_filename, append_mode)
 
@@ -121,6 +121,10 @@ def main(proc_filename, out_filename, mavs_type=1, append_mode=False, seconds_to
     st.write("First 10 rows", df.head(150))
     st.write("Last 10 rows", df.tail(150))
 
+    if seconds_to_offset:
+        us_to_offset = seconds_to_offset * 1e6
+        df = df.with_columns(pl.col('pdate') + pl.duration(microseconds=us_to_offset).alias("pdate"))
+
     if seconds_to_spread:
         ns_to_spread = seconds_to_spread * 1e9 / row_count
         df = df.with_columns(pl.Series("steps", range(row_count)).alias("steps"))
@@ -160,6 +164,7 @@ if __name__ == "__main__":
     parser.add_argument('--proc_filename', type=str, help='Input processing filename')
     parser.add_argument('--out_filename', type=str, help='Output filename')
     parser.add_argument('--seconds_to_spread', type=float, help='Seconds to spread a float')
+    parser.add_argument('--seconds_to_offset', type=float, help='Seconds to offset a float')
     parser.add_argument('--mavs_type', type=int, help='Seconds to spread as an integer', default=1)
 
     parser.add_argument("--append", "-a", action="store_true", help="This is a sample flag.")
@@ -168,6 +173,6 @@ if __name__ == "__main__":
     if not args.proc_filename or not args.out_filename:
         print("Please provide both --proc_filename and --out_filename ")
     else:
-        main(args.proc_filename, args.out_filename, args.mavs_type, args.append, args.seconds_to_spread)
+        main(args.proc_filename, args.out_filename, args.mavs_type, args.append, args.seconds_to_spread, args.seconds_to_offset)
 
 
