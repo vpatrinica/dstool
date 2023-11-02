@@ -1,3 +1,10 @@
+
+# update
+cd c:\prj\ds-tool\
+(optional) git stash
+git pull origin master
+
+
 cd ./src
 # Prepare
 
@@ -7,6 +14,14 @@ py prep_vector.py
 # open venv Python terminal in anaconda
 cd c:\prj\ds-tool\src
 # Process
+
+# --seconds_to_offset
+
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231101\\mavs-prep\\nk1-1\\DATA0001-part0.csv" --out_filename="C:\\usr\\20231101\\mavs-proc\\nk1-1\\_DATA0001.csv" --seconds_to_spread=0
+
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231101\\mavs-prep\\nk1-1\\DATA0001-partX.csv" --out_filename="C:\\usr\\20231101\\mavs-proc\\nk1-1\\_DATA0001.csv" --append --seconds_to_spread=0 --seconds_to_offset=1697828090.42 
+
+
 
 streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk1-4\\NK1-402.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk1-4\\_NK1-402-403.csv" --heading=13.4 --seed_time="21.09.2023 14:25:20.000" --end_time="01.10.2023 11:25:42.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" 
 streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk1-4\\NK1-403.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk1-4\\_NK1-402-403.csv" --heading=12.8 --seed_time="01.10.2023 11:29:15.000" --end_time="25.10.2023 16:05:17.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" --append 
