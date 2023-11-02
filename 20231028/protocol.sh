@@ -1,10 +1,11 @@
-
+cd ./src
 # Prepare
 
 py prep_mavs.py
 py prep_vector.py
 
-
+# open venv Python terminal in anaconda
+cd c:\prj\ds-tool\src
 # Process
 
 streamlit run rsvector.py -- --proc_filename="C:\\usr\\20231025\\vector-prep\\nk1-4\\NK1-402.csv" --out_filename="C:\\usr\\20231025\\vector-proc\\nk1-4\\_NK1-402-403.csv" --heading=13.4 --seed_time="21.09.2023 14:25:20.000" --end_time="01.10.2023 11:25:42.000" --time_fmt="%d.%m.%Y %H:%M:%S.%f" 
@@ -36,6 +37,14 @@ streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-2\
 streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-3\\DATA0001-part1.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-3\\_DATA0001.csv" --mavs_type=2
 
 streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231025\\mavs-prep\\nk2-3\\DATA0001-part2.csv" --out_filename="C:\\usr\\20231025\\mavs-proc\\nk2-3\\_DATA0001.csv" --mavs_type=2 --append 
+
+
+# commit changes
+cd c:\prj\ds-tool
+git add --all
+git commit -m "ASS-102 comment"
+
+git push origin master
 
 
 Vector Data:
