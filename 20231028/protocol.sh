@@ -18,8 +18,8 @@ cd c:\prj\ds-tool\src
 # --seconds_to_offset
 
 streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231101\\mavs-prep\\nk1-1\\DATA0001-part0.csv" --out_filename="C:\\usr\\20231101\\mavs-proc\\nk1-1\\_DATA0001.csv" --seconds_to_spread=0
-
-streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231101\\mavs-prep\\nk1-1\\DATA0001-partX.csv" --out_filename="C:\\usr\\20231101\\mavs-proc\\nk1-1\\_DATA0001.csv" --append --seconds_to_spread=0 --seconds_to_offset=1697828090.42 
+#1695298475 - 
+streamlit run rsmavs.py -- --proc_filename="C:\\usr\\20231101\\mavs-prep\\nk1-1\\DATA0001-partX.csv" --out_filename="C:\\usr\\20231101\\mavs-proc\\nk1-1\\_DATA0001.csv" --append --seconds_to_spread=0 --seconds_to_offset=1695298475.42 
 
 
 
