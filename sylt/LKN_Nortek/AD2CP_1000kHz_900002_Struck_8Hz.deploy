@@ -1,0 +1,34 @@
+#$DeployFileVersion,4,9ea59989e015e35b760112020c913c92
+#$SWSource,"Deployment-v4.6.19.1"
+#$InstrumentId,{"InstrumentType":"Signature1000","HeadFrequency":1000,"IsDeepWater":false,"IsLADCP":false,"FWVersion":"2215.15"$C
+#$}
+#$DeploymentName,"Struck"
+#$Comment,null
+#$ApplicationConfig,[{"Enabled":true,"Application":"BurstWaves","Mounting":"Fixedframe","Orientation":"UpLooking","Geography":"$C
+#$CoastalWater","SoundVelocity":"Measured","SoundVelocityValue":0.0,"Salinity":35.0,"StrongWaves":false,"ProfileRange":5.0,"Ins$C
+#$trumentDepth":20.0,"TidalRange":3.0,"BurstHR":false,"BurstHR5":false},{"Enabled":false,"Application":"None","Mounting":"Fixed$C
+#$frame","Orientation":"UpLooking","Geography":"CoastalWater","SoundVelocity":"Measured","SoundVelocityValue":0.0,"Salinity":35$C
+#$.0,"StrongWaves":false,"ProfileRange":5.0,"InstrumentDepth":20.0,"TidalRange":3.0,"BurstHR":false,"BurstHR5":false}]
+#$AlternatingRatio,[6,1]
+#$DeploymentConfigExtensions,[{"AvgDesiredRange":5.0,"BurstDesiredRange":5.0,"BurstHrDesiredRange":5.0,"EchoSounderDesiredRange$C
+#$":5.0,"AvgEndProfile":5.5,"BurstEndProfile":7.2,"BurstHrEndProfile":5.5,"EchoSounderEndProfile":5.5,"AIStep":1,"RangeStep":0.$C
+#$1,"BurstMeasurementContinuous":false,"AvgMeasurementLoad":100.0,"MinAvgMeasurementLoad":0.0,"MaxAvgMeasurementLoad":100.0,"Av$C
+#$gAutoMeasurementLoad":true,"AvgMeasurementLoadTick":1.0,"BurstMeasurementLoad":0.0,"BurstAutoMeasurementLoad":false,"BurstMea$C
+#$surementLoadTick":14.2857141,"PulseDistanceAutoOption":3,"PulseDistance":3,"DistanceToBottom":2.0,"DistanceToSurface":2.0,"De$C
+#$siredVelocityRange":0.25,"ValidBurstIntervals":[],"MeasurementIntervalAlternate":0},{"AvgDesiredRange":5.0,"BurstDesiredRange$C
+#$":5.0,"BurstHrDesiredRange":5.0,"EchoSounderDesiredRange":5.0,"AvgEndProfile":5.5,"BurstEndProfile":5.5,"BurstHrEndProfile":5$C
+#$.5,"EchoSounderEndProfile":5.5,"AIStep":1,"RangeStep":0.1,"BurstMeasurementContinuous":false,"AvgMeasurementLoad":100.0,"MinA$C
+#$vgMeasurementLoad":0.0,"MaxAvgMeasurementLoad":100.0,"AvgAutoMeasurementLoad":true,"AvgMeasurementLoadTick":1.0,"BurstMeasure$C
+#$mentLoad":100.0,"BurstAutoMeasurementLoad":true,"BurstMeasurementLoadTick":1.0,"PulseDistanceAutoOption":3,"PulseDistance":3,$C
+#$"DistanceToBottom":2.0,"DistanceToSurface":2.0,"DesiredVelocityRange":0.25,"ValidBurstIntervals":[],"MeasurementIntervalAlter$C
+#$nate":0}]
+#$BatteryItem,null
+#$BatteryCombo,{"InternalBattery":{"Name":"Alkaline 90 Wh","Volume":90.0,"Voltage":15.0},"ExternalBattery":{"Name":"None 0 Wh",$C
+#$"Volume":0.0,"Voltage":0.0},"Volume":90.0,"Voltage":15.0}
+#$RecorderItem,{"Name":"16 GB","Capacity":16000000000}
+#$AhrsInstalled,true
+#$DeploymentDays,3
+SETDEFAULT,ALL
+SETPLAN,MIAVG=600,AVG=0,DIAVG=0,VD=0,MV=10,SA=35,BURST=1,MIBURST=1200,DIBURST=0,SV=0,FN="Struck.ad2cp",SO=0,FREQ=1000,NSTT=0
+SETBURST,NC=30,NB=4,CS=0.2,BD=1,CY="BEAM",PL=0,SR=8,NS=8192,VR=2.5,DF=3,NPING=1,CH=0,VR5=2.5,ALTI=1,BT=0,DISV=0,ECHO=0,RAWALTI=1,ALTISTART=0.1,ALTIEND=14.6,HR=0,HR5=0
+SAVE,ALL

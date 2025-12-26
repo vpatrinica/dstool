@@ -1,0 +1,57 @@
+Python 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)] on win32
+Enter "help" below or click "Help" above for more information.
+
+======================== RESTART: C:\DATA\Northtec_jh.py =======================
+Ordner 'C:\DATA' existiert bereits.
+Versuche, seriellen Port zu öffnen...
+Serieller Port COM2 erfolgreich geöffnet.
+Sende spezifiziertes BREAK-Signal...Starte Überwachung der seriellen Schnittstelle...
+
+Gesendet: @@@@@@
+Empfangene Daten: @@@@@@
+Gesendet: K1W%!Q (nach 225 ms)Empfangene Daten: K1W%!Q
+
+Gesendet: K1W%!Q (nach 600 ms)Empfangene Daten: K1W%!Q
+
+Sende Befehl: % Send Break
+Empfangene Daten (Rohdaten): 'CONFIRM\r\nOK\r\n'
+Bereinigte Antwort: 'CONFIRMOK'
+Alle erwarteten Antworten empfangen.
+Vollständige Antwort (bereinigt): CONFIRMOK
+Sende Befehl: RM
+Empfangene Daten (Rohdaten): 'NORTEK AS.\r\nVersion 2216_14 (Mar 27 2025 13:19:55)\r\nDATA RETRIEVAL MODE\r\nOK\r\n'
+Bereinigte Antwort: 'NORTEK AS.Version 2216_14 (Mar 27 2025 13:19:55)DATA RETRIEVAL MODEOK'
+Alle erwarteten Antworten empfangen.
+Vollständige Antwort (bereinigt): NORTEK AS.Version 2216_14 (Mar 27 2025 13:19:55)DATA RETRIEVAL MODEOK
+Sende Befehl: TMSTAT
+Empfangene Daten (Rohdaten): '0\r\nOK\r\n'
+Bereinigte Antwort: '0OK'
+Bereinigte Antwort nach Sonderbehandlung für TMSTAT: 0
+Alle erwarteten Antworten empfangen.
+Vollständige Antwort (bereinigt): 0
+Sende Befehl: TMSTAT
+Empfangene Daten (Rohdaten): '0\r\nOK\r\n'
+Bereinigte Antwort: '0OK'
+Bereinigte Antwort nach Sonderbehandlung für TMSTAT: 0
+Alle erwarteten Antworten empfangen.
+Vollständige Antwort (bereinigt): 0
+Dateigröße: 0 Bytes
+Datei wird gespeichert unter: C:\DATA\Telemetrie_2025-09-17.txt
+Telemetrie-Daten erfolgreich gespeichert unter: C:\DATA\Telemetrie_2025-09-17.txt
+
+Warning (from warnings module):
+  File "C:\DATA\Northtec_jh.py", line 118
+    ntp_time = datetime.utcfromtimestamp(posix_time)
+DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+Aktuelle NTP-Zeit: 2025-09-17 12:47:46
+Sende Befehl: SETCLOCK,YEAR=2025,MONTH=9,DAY=17,HOUR=13,MINUTE=47,SECOND=46
+Empfangene Daten (Rohdaten): 'OK\r\n'
+Bereinigte Antwort: 'OK'
+Alle erwarteten Antworten empfangen.
+Vollständige Antwort (bereinigt): OK
+Sende Befehl: CO
+Empfangene Daten (Rohdaten): 'OK\r\n'
+Bereinigte Antwort: 'OK'
+Alle erwarteten Antworten empfangen.
+Vollständige Antwort (bereinigt): OK
+Warte 24 Stunden bis zum nächsten Downlod...
